@@ -1,5 +1,0 @@
-spring:
-  application:
-    name: Spring Boot Application for Receipt Processing
-
-springdoc.api-docs.enabled: true
