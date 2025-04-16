@@ -1,8 +1,10 @@
 package com.fetch.receipt.processor.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.fetch.receipt.processor.data.model.Receipt;
 import com.fetch.receipt.processor.data.response.BadRequestResponse;
 import com.fetch.receipt.processor.data.response.NotFoundResponse;
+import com.fetch.receipt.processor.data.response.Response;
 import com.fetch.receipt.processor.exception.UUIDNotFoundException;
 import com.fetch.receipt.processor.service.ReceiptProcessorService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -21,7 +23,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/receipts")
 @Tag(name = "Receipt Processor", description = "A simple receipt processor")
-public class ReceiptController {
+public class ReceiptProcessorController {
 
     @Autowired
     private ReceiptProcessorService receiptProcessorService;
@@ -32,7 +34,7 @@ public class ReceiptController {
                     responseCode = "200", description = "Returns the ID assigned to the receipt",
                     content = @Content(
                             mediaType = "application/json",
-                            schema = @Schema(implementation = UUID.class)
+                            schema = @Schema(implementation = Response.class)
                     )
             ),
             @ApiResponse(
@@ -41,9 +43,12 @@ public class ReceiptController {
             )
     })
     @PostMapping(value = "/process")
+    @JsonView(Response.IdView.class)
     public ResponseEntity<?> submitReceipt(@Valid @RequestBody Receipt receipt) {
         UUID newReceiptId = receiptProcessorService.createReceiptUUID(receipt);
-        return ResponseEntity.ok(newReceiptId);
+        Response response = new Response();
+        response.setId(String.valueOf(newReceiptId));
+        return ResponseEntity.ok(response);
     }
 
 
@@ -53,7 +58,7 @@ public class ReceiptController {
             @ApiResponse(
                     responseCode = "200", description = "The number of points awarded.",
                     content = @Content(
-                            schema = @Schema(implementation = Integer.class)
+                            schema = @Schema(implementation = Response.class)
                     )
             ),
             @ApiResponse(
@@ -62,8 +67,11 @@ public class ReceiptController {
             )
     })
     @GetMapping("/{id}/points")
-    public ResponseEntity<?> getPoints(@PathVariable("id") UUID id) throws UUIDNotFoundException {
-        int totalPoints = receiptProcessorService.findTotalPoints(id);
-        return ResponseEntity.ok(totalPoints);
+    @JsonView(Response.PointView.class)
+    public ResponseEntity<?> getPoints(@PathVariable("id") String id) throws UUIDNotFoundException {
+        int totalPoints = receiptProcessorService.findTotalPoints(UUID.fromString(id));
+        Response response = new Response();
+        response.setPoints(totalPoints);
+        return ResponseEntity.ok(response);
     }
 }

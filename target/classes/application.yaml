@@ -2,19 +2,4 @@ spring:
   application:
     name: Spring Boot Application for Receipt Processing
 
-#springdoc:
-#  api-docs:
-#    path: /api-docs
-#
-#  swagger-ui:
-#    path: /swagger-ui.html
-
 springdoc.api-docs.enabled: true
-
-# enable fully qualified names.
-#springdoc.use-fqn: true
-
-#server:
-#  error:
-#    whitelabel:
-#      enabled: false

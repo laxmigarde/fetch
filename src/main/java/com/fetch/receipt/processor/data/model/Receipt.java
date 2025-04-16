@@ -1,8 +1,12 @@
 package com.fetch.receipt.processor.data.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -14,13 +18,14 @@ public class Receipt {
     @NotBlank(message = "Retailer is required")
     private String retailer;
 
-    @NotBlank(message = "PurchaseDate is required")
-    private String purchaseDate;
+    @NotNull(message = "PurchaseDate is required")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate purchaseDate;
 
-    @NotBlank(message = "PurchaseTime is required")
-    private String purchaseTime;
+    @NotNull(message = "PurchaseTime is required")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
+    private LocalTime purchaseTime;
 
-//    @NotBlank(message = "Item/s is/are required")
     private List<Item> items;
 
     @NotBlank(message = "Total is required")
@@ -42,19 +47,19 @@ public class Receipt {
         this.retailer = retailer;
     }
 
-    public String getPurchaseDate() {
+    public LocalDate getPurchaseDate() {
         return purchaseDate;
     }
 
-    public void setPurchaseDate(String purchaseDate) {
+    public void setPurchaseDate(LocalDate purchaseDate) {
         this.purchaseDate = purchaseDate;
     }
 
-    public String getPurchaseTime() {
+    public LocalTime getPurchaseTime() {
         return purchaseTime;
     }
 
-    public void setPurchaseTime(String purchaseTime) {
+    public void setPurchaseTime(LocalTime purchaseTime) {
         this.purchaseTime = purchaseTime;
     }
 

@@ -22,16 +22,11 @@ public class ReceiptProcessorService {
     private static final Pattern ALPHANUMERIC_PATTERN = Pattern.compile("[a-zA-Z0-9]");
     private static final Pattern ROUND_DOLLAR_PATTERN = Pattern.compile("^\\d+\\.\\d{2}$");
 
-
     public UUID createReceiptUUID(Receipt receipt) {
         UUID uuid = UUID.randomUUID();
         receipt.setReceiptId(uuid);
         uuidReceiptMap.put(receipt.getReceiptId(), receipt);
         return receipt.getReceiptId();
-    }
-
-    public Map<UUID, Receipt> getAllEntrySet() {
-        return uuidReceiptMap;
     }
 
     public int findTotalPoints(UUID id) {
@@ -41,8 +36,8 @@ public class ReceiptProcessorService {
             String retailer = receipt.getRetailer();
             String total = receipt.getTotal();
             List<Item> items = receipt.getItems();
-            String day = receipt.getPurchaseDate();
-            String time = receipt.getPurchaseTime();
+            LocalDate day = receipt.getPurchaseDate();
+            LocalTime time = receipt.getPurchaseTime();
 
             int alphanumericPoints = findAlphanumerics(retailer);
             int totalValuePoints = findValue(total);
@@ -57,22 +52,22 @@ public class ReceiptProcessorService {
         return totalPoints;
     }
 
-    private int findTime(String inputTime) {
+    private int findTime(LocalTime inputTime) {
         int totalTimePoints = 0;
-        LocalTime time = LocalTime.parse(inputTime);
+//        LocalTime time = LocalTime.parse(inputTime);
         LocalTime startTime = LocalTime.of(14, 0); // 2:00 PM
         LocalTime endTime = LocalTime.of(16, 0); // 4:00 PM
 
-        if (time.isAfter(startTime) && time.isBefore(endTime)) {
+        if (inputTime.isAfter(startTime) && inputTime.isBefore(endTime)) {
             totalTimePoints += 10;
         }
         return totalTimePoints;
     }
 
-    private int findDay(String inputDay) {
+    private int findDay(LocalDate inputDay) {
         int totalOddDayPoints = 0;
-        LocalDate date = LocalDate.parse(inputDay);
-        int day = date.getDayOfMonth();
+//        LocalDate date = LocalDate.parse(inputDay);
+        int day = inputDay.getDayOfMonth();
 
         if (day % 2 != 0) { // odd day
             totalOddDayPoints += 6;
