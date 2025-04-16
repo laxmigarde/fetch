@@ -113,4 +113,4 @@ http://localhost:8080/swagger-ui/index.html#/
 └── .gitignore
 ```
 
-#### Screenshots of few outputs are available in 'screenshots' folder for reference.
+#### Screenshots of few outputs are available in [`screenshots`](https://github.com/laxmigarde/fetch/tree/main/screenshots) folder for reference.
