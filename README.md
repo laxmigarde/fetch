@@ -113,17 +113,4 @@ http://localhost:8080/swagger-ui/index.html#/
 └── .gitignore
 ```
 
-## 🖥️ Execute project on your local machine:
-- Requirements: Java 17.6.0 temurin, Maven 3.6.3, suitable IDE like Intellij IDEA, VSCode etc.
-- Clone GitHub repo and open the project
-- Build and clean the Maven project to download all the dependencies using IDE or execute command from terminal:
-```bash
-mvn clean package -DskipTests
-```
--  Run the application by right click on `ReceiptProcessorApp.java` and select `Run ReceiptProcessorApp` (Goto project folder: /src/main/java/com/fetch/receipt/processor)
-- Test the APIs using this [Swagger Link:](http://localhost:8080/swagger-ui/index.html#/)
-```bash
-http://localhost:8080/swagger-ui/index.html#/
-```
-
 #### Screenshots of few outputs are available in 'screenshots' folder for reference.
