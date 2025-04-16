@@ -52,6 +52,7 @@ As part of the problem statement a webservice has been developed using Java and 
 
 - Requirements: [Docker Desktop](https://www.docker.com/products/docker-desktop/) for Mac or Windows
 - Suitable IDE like Intellij IDEA or VSCode
+- Clone the repository from [fetch - GitHub Repo](https://github.com/laxmigarde/fetch)
 - Open the project and find the [Dockerfile](https://github.com/laxmigarde/fetch/blob/main/Dockerfile) in the project
 - If you are in the project, goto the Dockerfile's directory level and build the docker by copying the following command:
 ```
@@ -69,7 +70,6 @@ http://localhost:8080/swagger-ui/index.html#/
 ```
 - The above link opens the SwaggerUI / OpenAPI page which is similar to a rest client for API testing.
 - Click on the dropdown for each endpoint and click on `Try it out` button to test.
-#### 💁‍♀️ The APIs can be tested on tools like Postman or any other suitable REST client. But for documentation and easier access, please access the following: OpenAPI/ Swagger UI available for the two APIs.
 
 
 ## 🗂️ Project Structure:
